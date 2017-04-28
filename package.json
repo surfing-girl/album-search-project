@@ -1,0 +1,17 @@
+{
+  "name": "music-search",
+  "version": "1.0.0",
+  "description": "Techdegree project with spotify \u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[S\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C API",
+  "main": "app.js",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "webpack": "^2.4.1"
+  }
+}
