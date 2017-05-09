@@ -1,3 +1,6 @@
+$('.main-content').append('<div id="album-details"></div>');
+$('#album-details').hide();
+
 $('form').submit((e) => {
   let query = document.getElementById('search').value;
   e.preventDefault();
@@ -13,22 +16,28 @@ $('form').submit((e) => {
       info = "<li class='no-albums desc'><i class='material-icons icon-help'>help_outline</i>No albums found that match: " + query + ".</li>"
     }
     $('#albums').html(info);
-
+    $('#albums').show('slow');
     $('img').click( (e) => {
-      let albumDetails = '<div id="album-details">';
+      console.log('helllooooo');
       $('#albums').hide('slow');
+      let albumDetails = '<a id="searchResults" href="#">< Search results </a>';
 
       $.getJSON('https://api.spotify.com/v1/albums/' + e.target.parentNode.parentNode.childNodes[1].getAttribute('id') , (data) => {
-        // console.log(e.target.albumData.albumId);
         albumDetails += '<img class="album-art" src="' + e.target.getAttribute('src') + '"/>';
-        albumDetails += '<a href="' + data.external_urls.spotify + '">' + e.target.parentNode.parentNode.childNodes[1].innerHTML + ' ' + e.target.parentNode.parentNode.childNodes[2].innerHTML + '</a></div>';
-        albumDetails += '<h1>' + data.release_date + '</h1>';
-        albumDetails += '<ul>';
+        albumDetails += '<h1><a href="' + data.external_urls.spotify + '">' + e.target.parentNode.parentNode.childNodes[1].innerHTML + ' ' + e.target.parentNode.parentNode.childNodes[2].innerHTML;
+        albumDetails += ' (' + data.release_date + ')</a></h1>';
+        albumDetails += '<ol><h2>Tracks:</h2>';
         $.each(data.tracks.items, (index, track) => {
-          albumDetails += '<ol>' + track.name + '</ol>';
+          albumDetails += '<li>' + track.name + '</li>';
         });
-        albumDetails += '</ul>';
-        $('.main-content').html(albumDetails);
+        albumDetails += '</ol>';
+        $('#album-details').show().html(albumDetails);
+
+        $('#searchResults').click( (e)=> {
+          e.preventDefault();
+          $('#album-details').hide('slow');
+          $('#albums').show('slow');
+        });
       });
     });
   });
