@@ -157,6 +157,64 @@ button {
   margin: auto;
 }
 
+#album-details {
+  height: 350px;
+  background-color: #424141;
+  position: relative;
+}
+
+#album-details ol {
+  list-style-type: arabic;
+}
+
+#album-details span {
+  margin-left: 25px;
+}
+
+#album-details span a {
+  top: 30%;
+  position: absolute;
+}
+
+#album-details span a:hover {
+  color: white;
+}
+
+#album-details h1 a:hover {
+  color: #acabad;
+}
+
+#album-details span, #album-details span a {
+  color: #acabad;
+  font-size: 21px;
+  font-weight: bold;
+}
+
+#albumHeader .album-art {
+  width: 48%;
+  float: left;
+  margin-top: 12%;
+  border: white 16px solid;
+}
+
+#albumHeader h1 {
+  width: 50%;
+  float: right;
+  margin-top: 19%;
+  margin-bottom: 2px;
+  font-size: 27px;
+}
+
+#album-details a {
+  color: white;
+}
+
+#tracksList {
+  width: 49%;
+  float: right;
+  margin-top: 10%;
+}
+
 /* =================================
   Layout Styles
 ==================================== */

@@ -1,4 +1,4 @@
-$('.main-content').append('<div id="album-details"></div>');
+$('body').append('<div id="album-details"></div>');
 $('#album-details').hide();
 
 $('form').submit((e) => {
@@ -17,22 +17,23 @@ $('form').submit((e) => {
     }
     $('#albums').html(info);
     $('#albums').show('slow');
+    $('#album-details').hide();
     $('img').click( (e) => {
       console.log('helllooooo');
       $('#albums').hide('slow');
-      let albumDetails = '<a id="searchResults" href="#">< Search results </a>';
+      let albumDetails = '<div class="main-content clearfix"><span><a id="searchResults" href="#">< Search results</a></span><div id="albumHeader">';
+      //albumDetails += '';
 
       $.getJSON('https://api.spotify.com/v1/albums/' + e.target.parentNode.parentNode.childNodes[1].getAttribute('id') , (data) => {
         albumDetails += '<img class="album-art" src="' + e.target.getAttribute('src') + '"/>';
-        albumDetails += '<h1><a href="' + data.external_urls.spotify + '">' + e.target.parentNode.parentNode.childNodes[1].innerHTML + ' ' + e.target.parentNode.parentNode.childNodes[2].innerHTML;
-        albumDetails += ' (' + data.release_date + ')</a></h1>';
-        albumDetails += '<ol><h2>Tracks:</h2>';
+        albumDetails += '<h1><a href="' + data.external_urls.spotify + '">' + e.target.parentNode.parentNode.childNodes[1].innerHTML + ' ';
+        albumDetails += ' (' + data.release_date + ')</a></h1><span>' + e.target.parentNode.parentNode.childNodes[2].innerHTML + '</span></div>';
+        albumDetails += '<div id="tracksList"><h2>Track list:</h2><ol>';
         $.each(data.tracks.items, (index, track) => {
           albumDetails += '<li>' + track.name + '</li>';
         });
-        albumDetails += '</ol>';
+        albumDetails += '</ol></div></div>';
         $('#album-details').show().html(albumDetails);
-
         $('#searchResults').click( (e)=> {
           e.preventDefault();
           $('#album-details').hide('slow');
