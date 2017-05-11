@@ -6,7 +6,7 @@ $('form').submit((e) => {
   e.preventDefault();
   // Get albums info from Spotify API
   $.getJSON('https://api.spotify.com/v1/search?q=' + query + '&type=album', (data) => {
-    createAlbumsList(data);
+    createAlbumsList(data, query);
     hideDetailsAndShowList();
     // Show details page after album's image click
     $('img').click( (e) => {
@@ -17,7 +17,7 @@ $('form').submit((e) => {
 
 
 // Function creates list of albums
-function createAlbumsList(data) {
+function createAlbumsList(data, query) {
   let info = '';
   if (data.albums.items.length > 0) {
     $.each(data.albums.items, (index, album) => {
@@ -26,6 +26,7 @@ function createAlbumsList(data) {
       info += '<span class="album-artist">' + album.artists[0].name + '</span></li>';
     });
   } else {
+    console.log('hellooo');
     info = "<li class='no-albums desc'><i class='material-icons icon-help'>help_outline</i>No albums found that match: " + query + ".</li>"
   }
   $('#albums').html(info);
